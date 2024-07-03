@@ -2,15 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using movies_api.models;
 
-namespace movies_api.Models
+namespace movies_api.Dtos.Comment
 {
-    public class Rating
+    public class CommentDto
     {
         public int Id { get; set; }
-        public int RatingNumber { get; set; }
+        public string Content { get; set; } = String.Empty;
         public int? MovieId { get; set; }
-        public Movie? Movie { get; set; }
     }
 }

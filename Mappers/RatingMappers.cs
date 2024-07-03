@@ -22,6 +22,7 @@ namespace movies_api.Mappers
         {
             return new RatingDto
             {
+                Id = model.Id,
                 RatingNumber = model.RatingNumber,
                 MovieId = model.MovieId,
             };
