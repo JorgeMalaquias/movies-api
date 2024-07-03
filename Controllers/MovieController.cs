@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using movies_api.Dtos.Movie;
 using movies_api.Interfaces;
@@ -23,6 +24,10 @@ namespace movies_api.Controllers
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var movie = await _movieRepository.GetByIdAsync(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
             return Ok(movie);
         }
 
