@@ -14,16 +14,16 @@ namespace movies_api.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-        private readonly IMovieRepository _movieRepository;
-        public MovieController(IMovieRepository movieRepository)
+        private readonly IMovieRepository _repository;
+        public MovieController(IMovieRepository repository)
         {
-            _movieRepository = movieRepository;
+            _repository = repository;
         }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var movie = await _movieRepository.GetByIdAsync(id);
+            var movie = await _repository.GetByIdAsync(id);
             if (movie == null)
             {
                 return NotFound();
@@ -39,7 +39,7 @@ namespace movies_api.Controllers
                 return BadRequest(ModelState);
             }
             var model = dto.ToMovieModelFromCreateDTO();
-            var movie = await _movieRepository.CreateAsync(model);
+            var movie = await _repository.CreateAsync(model);
             return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToMovieDto());
         }
     }

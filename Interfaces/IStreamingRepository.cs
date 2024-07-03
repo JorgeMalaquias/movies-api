@@ -9,6 +9,7 @@ namespace movies_api.Interfaces
 {
     public interface IStreamingRepository
     {
-        Task<EntityEntry<Streaming>> CreateAsync(Streaming model);
+        Task<Streaming> CreateAsync(Streaming model);
+        Task<Streaming?> GetById(int id);
     }
 }
