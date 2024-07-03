@@ -61,7 +61,7 @@ namespace movies_api.Repositories
             return model;
         }
 
-        public async Task<Movie?> DeleteAsync(int id, Movie model)
+        public async Task<Movie?> DeleteAsync(int id)
         {
             var existingMovie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
             if (existingMovie == null)

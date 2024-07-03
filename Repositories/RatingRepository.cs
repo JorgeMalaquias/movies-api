@@ -38,7 +38,7 @@ namespace movies_api.Repositories
             return model;
         }
 
-        public async Task<Rating?> DeleteAsync(int id, Rating model)
+        public async Task<Rating?> DeleteAsync(int id)
         {
             var existingRating = await _context.Ratings.FirstOrDefaultAsync(m => m.Id == id);
             if (existingRating == null)

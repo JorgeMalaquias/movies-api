@@ -14,7 +14,7 @@ namespace movies_api.Interfaces
         Task<List<Movie>> GetManyAsync(MovieQuery query);
         Task<Movie> CreateAsync(Movie model);
         Task<Movie?> UpdateAsync(int id, Movie model);
-        Task<Movie?> DeleteAsync(int id, Movie model);
+        Task<Movie?> DeleteAsync(int id);
         Task<Movie?> ConnectGenreAsync(int movieId, Genre genre);
         Task<Movie?> ConnectStreamingAsync(int movieId, Streaming streaming);
         Task<bool> MovieExists(int id);

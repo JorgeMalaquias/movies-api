@@ -16,6 +16,13 @@ namespace movies_api.Mappers
                 Name = dto.Name
             };
         }
+        public static Streaming ToStreamingModelFromUpdateDTO(this UpdateStreamingRequestDto dto)
+        {
+            return new Streaming
+            {
+                Name = dto.Name
+            };
+        }
         public static StreamingDto ToStreamingDto(this Streaming model)
         {
             return new StreamingDto

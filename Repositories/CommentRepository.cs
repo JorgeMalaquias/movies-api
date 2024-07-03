@@ -38,7 +38,7 @@ namespace movies_api.Repositories
             await _context.SaveChangesAsync();
             return model;
         }
-        public async Task<Comment?> DeleteAsync(int id, Comment model)
+        public async Task<Comment?> DeleteAsync(int id)
         {
             var existingComment = await _context.Comments.FirstOrDefaultAsync(m => m.Id == id);
             if (existingComment == null)

@@ -19,6 +19,14 @@ namespace movies_api.Mappers
                 MovieId = dto.MovieId
             };
         }
+        public static Comment ToCommentModelFromUpdateDTO(this UpdateCommentRequestDto dto)
+        {
+            return new Comment
+            {
+                Content = dto.Content,
+                MovieId = dto.MovieId
+            };
+        }
         public static CommentDto ToCommentDto(this Comment model)
         {
             return new CommentDto

@@ -40,7 +40,7 @@ namespace movies_api.Repositories
             return model;
         }
 
-        public async Task<Streaming?> DeleteAsync(int id, Streaming model)
+        public async Task<Streaming?> DeleteAsync(int id)
         {
             var existingStreaming = await _context.Streamings.FirstOrDefaultAsync(m => m.Id == id);
             if (existingStreaming == null)

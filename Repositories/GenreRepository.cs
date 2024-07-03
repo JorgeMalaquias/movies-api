@@ -57,7 +57,7 @@ namespace movies_api.Repositories
             return existingGenre;
         }
 
-        public async Task<Genre?> DeleteAsync(int id, Genre model)
+        public async Task<Genre?> DeleteAsync(int id)
         {
             var existingGenre = await _context.Genres.FirstOrDefaultAsync(m => m.Id == id);
             if (existingGenre == null)
@@ -69,7 +69,5 @@ namespace movies_api.Repositories
             await _context.SaveChangesAsync();
             return existingGenre;
         }
-
-
     }
 }

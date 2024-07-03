@@ -42,5 +42,31 @@ namespace movies_api.Controllers
             var rating = await _repository.CreateAsync(model);
             return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToStreamingDto());
         }
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStreamingRequestDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var model = dto.ToStreamingModelFromUpdateDTO();
+            var modelFromRepository = await _repository.UpdateAsync(id, model);
+            if (modelFromRepository == null)
+            {
+                return NotFound();
+            }
+            return Ok(modelFromRepository.ToStreamingDto());
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var model = await _repository.DeleteAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
     }
 }

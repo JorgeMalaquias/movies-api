@@ -38,12 +38,8 @@ namespace movies_api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMany([FromQuery] MovieQuery query)
         {
-            var movie = await _repository.GetManyAsync(query);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-            return Ok(movie);
+            var movies = await _repository.GetManyAsync(query);
+            return Ok(movies);
         }
 
         [HttpPost]
@@ -65,12 +61,22 @@ namespace movies_api.Controllers
                 return BadRequest(ModelState);
             }
             var model = dto.ToMovieModelFromUpdateDTO();
-            var movie = await _repository.UpdateAsync(id, model);
-            if (movie == null)
+            var modelFromRepository = await _repository.UpdateAsync(id, model);
+            if (modelFromRepository == null)
             {
                 return NotFound();
             }
-            return Ok(movie.ToMovieDto());
+            return Ok(modelFromRepository.ToMovieDto());
+        }
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var model = await _repository.DeleteAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
 
         [HttpPatch("add_genre/{genreId:int}/{movieId:int}")]

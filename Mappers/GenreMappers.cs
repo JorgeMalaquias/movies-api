@@ -17,6 +17,13 @@ namespace movies_api.Mappers
                 Name = dto.Name
             };
         }
+        public static Genre ToGenreModelFromUpdateDTO(this UpdateGenreRequestDto dto)
+        {
+            return new Genre
+            {
+                Name = dto.Name
+            };
+        }
         public static GenreDto ToGenreDto(this Genre model)
         {
             return new GenreDto

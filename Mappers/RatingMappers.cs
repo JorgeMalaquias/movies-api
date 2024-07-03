@@ -18,6 +18,13 @@ namespace movies_api.Mappers
                 MovieId = dto.MovieId
             };
         }
+        public static Rating ToRatingFromUpdateDto(this UpdateRatingRequestDto dto)
+        {
+            return new Rating
+            {
+                RatingNumber = dto.RatingNumber,
+            };
+        }
         public static RatingDto ToRatingDto(this Rating model)
         {
             return new RatingDto

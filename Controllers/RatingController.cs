@@ -21,6 +21,13 @@ namespace movies_api.Controllers
             _movieRepository = movieRepository;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetMany()
+        {
+            var ratings = await _repository.GetManyAsync();
+            return Ok(ratings);
+        }
+
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -46,6 +53,31 @@ namespace movies_api.Controllers
             var model = dto.ToRatingFromCreateDto();
             var rating = await _repository.CreateAsync(model);
             return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToRatingDto());
+        }
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRatingRequestDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var model = dto.ToRatingFromUpdateDto();
+            var modelFromRepository = await _repository.UpdateAsync(id, model);
+            if (modelFromRepository == null)
+            {
+                return NotFound();
+            }
+            return Ok(modelFromRepository.ToRatingDto());
+        }
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var model = await _repository.DeleteAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 }

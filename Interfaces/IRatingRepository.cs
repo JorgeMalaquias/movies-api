@@ -12,6 +12,6 @@ namespace movies_api.Interfaces
         Task<Rating?> GetByIdAsync(int id);
         Task<Rating> CreateAsync(Rating model);
         Task<Rating?> UpdateAsync(int id, Rating model);
-        Task<Rating?> DeleteAsync(int id, Rating model);
+        Task<Rating?> DeleteAsync(int id);
     }
 }

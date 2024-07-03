@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using movies_api.Dtos.Comment;
 using movies_api.Dtos.Genre;
 using movies_api.Interfaces;
 using movies_api.Mappers;
@@ -17,6 +18,13 @@ namespace movies_api.Controllers
         public GenreController(IGenreRepository repository)
         {
             _repository = repository;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMany()
+        {
+            var genres = await _repository.GetManyAsync();
+            return Ok(genres);
         }
 
         [HttpGet("{id:int}")]
@@ -40,6 +48,31 @@ namespace movies_api.Controllers
             var model = dto.ToGenreModelFromCreateDTO();
             var rating = await _repository.CreateAsync(model);
             return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToGenreDto());
+        }
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateGenreRequestDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var model = dto.ToGenreModelFromUpdateDTO();
+            var modelFromRepository = await _repository.UpdateAsync(id, model);
+            if (modelFromRepository == null)
+            {
+                return NotFound();
+            }
+            return Ok(modelFromRepository.ToGenreDto());
+        }
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var model = await _repository.DeleteAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 }

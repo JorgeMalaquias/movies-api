@@ -13,7 +13,7 @@ namespace movies_api.Interfaces
         Task<Streaming?> GetByIdAsync(int id);
         Task<Streaming> CreateAsync(Streaming model);
         Task<Streaming?> UpdateAsync(int id, Streaming model);
-        Task<Streaming?> DeleteAsync(int id, Streaming model);
+        Task<Streaming?> DeleteAsync(int id);
         Task<bool> StreamingExists(int id);
     }
 }
