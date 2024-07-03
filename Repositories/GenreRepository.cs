@@ -16,14 +16,12 @@ namespace movies_api.Repositories
         {
             _context = context;
         }
-
-        public async Task<Genre> CreateAsync(Genre model)
+        public async Task<List<Genre>> GetManyAsync()
         {
-            await _context.Genres.AddAsync(model);
-            await _context.SaveChangesAsync();
-            return model;
-        }
+            var genres = await _context.Genres.ToListAsync();
 
+            return genres;
+        }
         public async Task<Genre?> GetByIdAsync(int id)
         {
             var genre = await _context.Genres.FirstOrDefaultAsync(g => g.Id == id);
@@ -33,11 +31,45 @@ namespace movies_api.Repositories
             }
             return genre;
         }
+        public async Task<Genre> CreateAsync(Genre model)
+        {
+            await _context.Genres.AddAsync(model);
+            await _context.SaveChangesAsync();
+            return model;
+        }
 
-        public async Task<bool> GenreExistes(int id)
+        public async Task<bool> GenreExists(int id)
         {
             var movieExistes = await _context.Genres.AnyAsync(g => g.Id == id);
             return movieExistes;
         }
+
+        public async Task<Genre?> UpdateAsync(int id, Genre model)
+        {
+            var existingGenre = await _context.Genres.FirstOrDefaultAsync(m => m.Id == id);
+            if (existingGenre == null)
+            {
+                return null;
+            }
+            existingGenre.Name = model.Name;
+
+            await _context.SaveChangesAsync();
+            return existingGenre;
+        }
+
+        public async Task<Genre?> DeleteAsync(int id, Genre model)
+        {
+            var existingGenre = await _context.Genres.FirstOrDefaultAsync(m => m.Id == id);
+            if (existingGenre == null)
+            {
+                return null;
+            }
+            _context.Genres.Remove(existingGenre);
+
+            await _context.SaveChangesAsync();
+            return existingGenre;
+        }
+
+
     }
 }

@@ -16,13 +16,11 @@ namespace movies_api.Repositories
         {
             _context = context;
         }
-        public async Task<Rating> CreateAsync(Rating model)
+        public async Task<List<Rating>> GetManyAsync()
         {
-            await _context.Ratings.AddAsync(model);
-            await _context.SaveChangesAsync();
-            return model;
+            var ratings = await _context.Ratings.ToListAsync();
+            return ratings;
         }
-
         public async Task<Rating?> GetByIdAsync(int id)
         {
             var rating = await _context.Ratings.FirstOrDefaultAsync(r => r.Id == id);
@@ -31,6 +29,39 @@ namespace movies_api.Repositories
                 return null;
             }
             return rating;
+        }
+
+        public async Task<Rating> CreateAsync(Rating model)
+        {
+            await _context.Ratings.AddAsync(model);
+            await _context.SaveChangesAsync();
+            return model;
+        }
+
+        public async Task<Rating?> DeleteAsync(int id, Rating model)
+        {
+            var existingRating = await _context.Ratings.FirstOrDefaultAsync(m => m.Id == id);
+            if (existingRating == null)
+            {
+                return null;
+            }
+            _context.Ratings.Remove(existingRating);
+
+            await _context.SaveChangesAsync();
+            return existingRating;
+        }
+
+        public async Task<Rating?> UpdateAsync(int id, Rating model)
+        {
+            var existingRating = await _context.Ratings.FirstOrDefaultAsync(m => m.Id == id);
+            if (existingRating == null)
+            {
+                return null;
+            }
+            existingRating.RatingNumber = model.RatingNumber;
+
+            await _context.SaveChangesAsync();
+            return existingRating;
         }
     }
 }

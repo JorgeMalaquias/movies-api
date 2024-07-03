@@ -20,39 +20,6 @@ namespace movies_api.Repositories
             _context = context;
         }
 
-        public async Task<Movie?> ConnectGenreAsync(int movieId, Genre genre)
-        {
-            var movie = await _context.Movies.Include(m => m.Genres).FirstOrDefaultAsync(m => m.Id == movieId);
-            if (movie == null)
-            {
-                return null;
-            }
-            movie.Genres.Add(genre);
-
-            await _context.SaveChangesAsync();
-            return movie;
-        }
-
-        public async Task<Movie?> ConnectStreamingAsync(int movieId, Streaming streaming)
-        {
-            var movie = await _context.Movies.Include(m => m.Streamings).FirstOrDefaultAsync(m => m.Id == movieId);
-            if (movie == null)
-            {
-                return null;
-            }
-            movie.Streamings.Add(streaming);
-
-            await _context.SaveChangesAsync();
-            return movie;
-        }
-
-        public async Task<Movie> CreateAsync(Movie model)
-        {
-            await _context.Movies.AddAsync(model);
-            await _context.SaveChangesAsync();
-            return model;
-        }
-
         public async Task<Movie?> GetByIdAsync(int id)
         {
             var movie = await _context.Movies.Include(m => m.Genres).FirstOrDefaultAsync(x => x.Id == id);
@@ -87,10 +54,24 @@ namespace movies_api.Repositories
             return await movies.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
-        public async Task<bool> MovieExists(int id)
+        public async Task<Movie> CreateAsync(Movie model)
         {
-            var movieExistes = await _context.Movies.AnyAsync(m => m.Id == id);
-            return movieExistes;
+            await _context.Movies.AddAsync(model);
+            await _context.SaveChangesAsync();
+            return model;
+        }
+
+        public async Task<Movie?> DeleteAsync(int id, Movie model)
+        {
+            var existingMovie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
+            if (existingMovie == null)
+            {
+                return null;
+            }
+            _context.Movies.Remove(existingMovie);
+
+            await _context.SaveChangesAsync();
+            return existingMovie;
         }
 
         public async Task<Movie?> UpdateAsync(int id, Movie model)
@@ -105,6 +86,36 @@ namespace movies_api.Repositories
 
             await _context.SaveChangesAsync();
             return existingMovie;
+        }
+        public async Task<Movie?> ConnectGenreAsync(int movieId, Genre genre)
+        {
+            var movie = await _context.Movies.Include(m => m.Genres).FirstOrDefaultAsync(m => m.Id == movieId);
+            if (movie == null)
+            {
+                return null;
+            }
+            movie.Genres.Add(genre);
+
+            await _context.SaveChangesAsync();
+            return movie;
+        }
+
+        public async Task<Movie?> ConnectStreamingAsync(int movieId, Streaming streaming)
+        {
+            var movie = await _context.Movies.Include(m => m.Streamings).FirstOrDefaultAsync(m => m.Id == movieId);
+            if (movie == null)
+            {
+                return null;
+            }
+            movie.Streamings.Add(streaming);
+
+            await _context.SaveChangesAsync();
+            return movie;
+        }
+        public async Task<bool> MovieExists(int id)
+        {
+            var movieExistes = await _context.Movies.AnyAsync(m => m.Id == id);
+            return movieExistes;
         }
     }
 }

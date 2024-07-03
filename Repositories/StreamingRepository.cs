@@ -17,14 +17,6 @@ namespace movies_api.Repositories
         {
             _context = context;
         }
-
-        public async Task<Streaming> CreateAsync(Streaming model)
-        {
-            await _context.Streamings.AddAsync(model);
-            await _context.SaveChangesAsync();
-            return model;
-        }
-
         public async Task<Streaming?> GetByIdAsync(int id)
         {
             var streaming = await _context.Streamings.FirstOrDefaultAsync(s => s.Id == id);
@@ -35,6 +27,47 @@ namespace movies_api.Repositories
             return streaming;
         }
 
+        public async Task<List<Streaming>> GetManyAsync()
+        {
+            var streamings = await _context.Streamings.ToListAsync();
 
+            return streamings;
+        }
+        public async Task<Streaming> CreateAsync(Streaming model)
+        {
+            await _context.Streamings.AddAsync(model);
+            await _context.SaveChangesAsync();
+            return model;
+        }
+
+        public async Task<Streaming?> DeleteAsync(int id, Streaming model)
+        {
+            var existingStreaming = await _context.Streamings.FirstOrDefaultAsync(m => m.Id == id);
+            if (existingStreaming == null)
+            {
+                return null;
+            }
+            _context.Streamings.Remove(existingStreaming);
+
+            await _context.SaveChangesAsync();
+            return existingStreaming;
+        }
+
+        public async Task<Streaming?> UpdateAsync(int id, Streaming model)
+        {
+            var existingStreaming = await _context.Streamings.FirstOrDefaultAsync(m => m.Id == id);
+            if (existingStreaming == null)
+            {
+                return null;
+            }
+            existingStreaming.Name = model.Name;
+
+            await _context.SaveChangesAsync();
+            return existingStreaming;
+        }
+        public Task<bool> StreamingExists(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

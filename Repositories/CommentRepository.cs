@@ -16,11 +16,11 @@ namespace movies_api.Repositories
         {
             _context = context;
         }
-        public async Task<Comment> CreateAsync(Comment model)
+
+        public async Task<List<Comment>> GetManyAsync()
         {
-            await _context.Comments.AddAsync(model);
-            await _context.SaveChangesAsync();
-            return model;
+            var comments = await _context.Comments.ToListAsync();
+            return comments;
         }
 
         public async Task<Comment?> GetByIdAsync(int id)
@@ -31,6 +31,37 @@ namespace movies_api.Repositories
                 return null;
             }
             return comment;
+        }
+        public async Task<Comment> CreateAsync(Comment model)
+        {
+            await _context.Comments.AddAsync(model);
+            await _context.SaveChangesAsync();
+            return model;
+        }
+        public async Task<Comment?> DeleteAsync(int id, Comment model)
+        {
+            var existingComment = await _context.Comments.FirstOrDefaultAsync(m => m.Id == id);
+            if (existingComment == null)
+            {
+                return null;
+            }
+            _context.Comments.Remove(existingComment);
+
+            await _context.SaveChangesAsync();
+            return existingComment;
+        }
+
+        public async Task<Comment?> UpdateAsync(int id, Comment model)
+        {
+            var existingComment = await _context.Comments.FirstOrDefaultAsync(m => m.Id == id);
+            if (existingComment == null)
+            {
+                return null;
+            }
+            existingComment.Content = model.Content;
+
+            await _context.SaveChangesAsync();
+            return existingComment;
         }
     }
 }
