@@ -8,6 +8,8 @@ namespace movies_api.Interfaces
 {
     public interface IMovieRepository
     {
+
+        Task<Movie?> GetByIdAsync(int id);
         Task<Movie> CreateAsync(Movie model);
     }
 }
