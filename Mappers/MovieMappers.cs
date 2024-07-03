@@ -24,6 +24,7 @@ namespace movies_api.Mappers
                 Id = model.Id,
                 Title = model.Title,
                 ReleasingDate = model.ReleasingDate
+
             };
         }
     }

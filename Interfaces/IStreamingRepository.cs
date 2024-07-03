@@ -10,6 +10,6 @@ namespace movies_api.Interfaces
     public interface IStreamingRepository
     {
         Task<Streaming> CreateAsync(Streaming model);
-        Task<Streaming?> GetById(int id);
+        Task<Streaming?> GetByIdAsync(int id);
     }
 }

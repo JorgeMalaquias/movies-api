@@ -9,5 +9,6 @@ namespace movies_api.Interfaces
     public interface IGenreRepository
     {
         Task<Genre> CreateAsync(Genre model);
+        Task<Genre?> GetByIdAsync(int id);
     }
 }

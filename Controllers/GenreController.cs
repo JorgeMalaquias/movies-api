@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using movies_api.Dtos.Rating;
+using movies_api.Dtos.Genre;
 using movies_api.Interfaces;
 using movies_api.Mappers;
 
 namespace movies_api.Controllers
 {
-    [Route("api/ratings")]
-    [ApiController]
-    public class RatingController : ControllerBase
+    public class GenreController : ControllerBase
     {
-        private readonly IRatingRepository _repository;
-        public RatingController(IRatingRepository repository)
+        private readonly IGenreRepository _repository;
+        public GenreController(IGenreRepository repository)
         {
             _repository = repository;
         }
@@ -22,24 +20,24 @@ namespace movies_api.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var rating = await _repository.GetByIdAsync(id);
-            if (rating == null)
+            var genre = await _repository.GetByIdAsync(id);
+            if (genre == null)
             {
                 return NotFound();
             }
-            return Ok(rating);
+            return Ok(genre);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateRatingRequestDto dto)
+        public async Task<IActionResult> Create([FromBody] CreateGenreRequestDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var model = dto.ToRatingFromCreateDto();
+            var model = dto.ToGenreModelFromCreateDTO();
             var rating = await _repository.CreateAsync(model);
-            return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToRatingDto());
+            return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToGenreDto());
         }
     }
 }
