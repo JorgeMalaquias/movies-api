@@ -11,5 +11,6 @@ namespace movies_api.Interfaces
 
         Task<Movie?> GetByIdAsync(int id);
         Task<Movie> CreateAsync(Movie model);
+        Task<bool> MovieExistes(int id);
     }
 }
