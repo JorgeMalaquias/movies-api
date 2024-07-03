@@ -2,24 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using movies_api.Dtos.Genre;
-using movies_api.Dtos.Movie;
+using movies_api.Dtos.Streaming;
 using movies_api.models;
 
 namespace movies_api.Mappers
 {
-    public static class GenreMappers
+    public static class StreamingMappers
     {
-        public static Genre ToGenreModelFromCreateDTO(this CreateGenreRequestDto dto)
+        public static Streaming ToStreamingModelFromCreateDTO(this CreateStreamingRequestDto dto)
         {
-            return new Genre
+            return new Streaming
             {
                 Name = dto.Name
             };
         }
-        public static GenreDto ToGenreDto(this Genre model)
+        public static StreamingDto ToStreamingDto(this Streaming model)
         {
-            return new GenreDto
+            return new StreamingDto
             {
                 Id = model.Id,
                 Name = model.Name

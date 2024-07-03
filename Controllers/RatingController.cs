@@ -9,14 +9,16 @@ using movies_api.Mappers;
 
 namespace movies_api.Controllers
 {
-    [Route("api/ratings")]
+    [Route("ratings")]
     [ApiController]
     public class RatingController : ControllerBase
     {
         private readonly IRatingRepository _repository;
-        public RatingController(IRatingRepository repository)
+        private readonly IMovieRepository _movieRepository;
+        public RatingController(IRatingRepository repository, IMovieRepository movieRepository)
         {
             _repository = repository;
+            _movieRepository = movieRepository;
         }
 
         [HttpGet("{id:int}")]
@@ -36,6 +38,10 @@ namespace movies_api.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+            if (!await _movieRepository.MovieExists(dto.MovieId))
+            {
+                return BadRequest("Movie not found");
             }
             var model = dto.ToRatingFromCreateDto();
             var rating = await _repository.CreateAsync(model);

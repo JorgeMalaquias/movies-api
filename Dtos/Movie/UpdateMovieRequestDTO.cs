@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace movies_api.Dtos.Movie
 {
-    public class CreateMovieRequestDto
+    public class UpdateMovieRequestDTO
     {
         [Required]
         [MaxLength(40, ErrorMessage = "Title can not be more than 40 characters")]

@@ -9,7 +9,11 @@ namespace movies_api.Interfaces
 {
     public interface IStreamingRepository
     {
-        Task<Streaming> CreateAsync(Streaming model);
+        Task<List<Streaming>> GetManyAsync();
         Task<Streaming?> GetByIdAsync(int id);
+        Task<Streaming> CreateAsync(Streaming model);
+        Task<Streaming?> UpdateAsync(int id, Streaming model);
+        Task<Streaming?> DeleteAsync(int id, Streaming model);
+        Task<bool> StreamingExists(int id);
     }
 }

@@ -17,6 +17,14 @@ namespace movies_api.Mappers
                 ReleasingDate = new DateOnly(dto.ReleasingYear, dto.ReleasingMonth, 1)
             };
         }
+        public static Movie ToMovieModelFromUpdateDTO(this UpdateMovieRequestDTO dto)
+        {
+            return new Movie
+            {
+                Title = dto.Title,
+                ReleasingDate = new DateOnly(dto.ReleasingYear, dto.ReleasingMonth, 1)
+            };
+        }
         public static MovieDto ToMovieDto(this Movie model)
         {
             return new MovieDto

@@ -8,7 +8,11 @@ namespace movies_api.Interfaces
 {
     public interface IGenreRepository
     {
-        Task<Genre> CreateAsync(Genre model);
+        Task<List<Genre>> GetManyAsync();
         Task<Genre?> GetByIdAsync(int id);
+        Task<Genre> CreateAsync(Genre model);
+        Task<Genre?> UpdateAsync(int id, Genre model);
+        Task<Genre?> DeleteAsync(int id, Genre model);
+        Task<bool> GenreExists(int id);
     }
 }

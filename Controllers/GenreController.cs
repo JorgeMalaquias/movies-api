@@ -9,6 +9,8 @@ using movies_api.Mappers;
 
 namespace movies_api.Controllers
 {
+    [Route("genres")]
+    [ApiController]
     public class GenreController : ControllerBase
     {
         private readonly IGenreRepository _repository;

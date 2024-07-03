@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using movies_api.Database;
+using movies_api.Interfaces;
 using movies_api.models;
 
 namespace movies_api.Repositories
 {
-    public class GenreRepository
+    public class GenreRepository : IGenreRepository
     {
         private readonly ApplicationDBContext _context;
         public GenreRepository(ApplicationDBContext context)
@@ -33,9 +34,9 @@ namespace movies_api.Repositories
             return genre;
         }
 
-        public async Task<bool> MovieExistes(int id)
+        public async Task<bool> GenreExistes(int id)
         {
-            var movieExistes = await _context.Movies.AnyAsync(m => m.Id == id);
+            var movieExistes = await _context.Genres.AnyAsync(g => g.Id == id);
             return movieExistes;
         }
     }
