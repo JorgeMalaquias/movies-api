@@ -38,7 +38,7 @@ namespace movies_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(comment.ToCommentDto());
+            return Ok(comment);
         }
 
         [HttpPost]
@@ -48,7 +48,7 @@ namespace movies_api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            if (!await _movieRepository.MovieExists(dto.MovieId))
+            if (!await _movieRepository.MovieExistsId(dto.MovieId))
             {
                 return BadRequest("Movie not found");
             }

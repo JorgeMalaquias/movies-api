@@ -122,7 +122,10 @@ namespace movies_api.Repositories
             return movie;
         }
 
-
-
+        public async Task<bool> MovieExistsId(int id)
+        {
+            var movieExistes = await _context.Movies.AnyAsync(m => m.Id == id);
+            return movieExistes;
+        }
     }
 }

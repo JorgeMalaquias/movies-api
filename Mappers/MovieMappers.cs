@@ -48,9 +48,9 @@ namespace movies_api.Mappers
                 RatingAverage = model.Ratings.Any() ? (float)model.Ratings.Average(r => r.RatingNumber) : null,
                 NumberOfRatings = model.Ratings.Count(),
                 NumberOfComments = model.Comments.Count(),
-                Comments = model.Ratings.Any() ? (List<CommentDto>)model.Comments.Select(c => c.ToCommentDto()) : [],
-                Genres = model.Ratings.Any() ? (List<GenreDto>)model.Genres.Select(g => g.ToGenreDto()) : [],
-                Streamings = model.Ratings.Any() ? (List<StreamingDto>)model.Streamings.Select(s => s.ToStreamingDto()) : [],
+                //Comments = model.Comments.Any() ? (List<CommentDto>)model.Comments.Select(c => c.ToCommentDto()) : [],
+                //Genres = model.Genres.Any() ? (List<GenreDto>)model.Genres.Select(g => g.ToGenreDto()) : [],
+                //Streamings = model.Streamings.Any() ? (List<StreamingDto>)model.Streamings.Select(s => s.ToStreamingDto()) : [],
             };
         }
     }
