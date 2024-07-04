@@ -65,9 +65,12 @@ namespace movies_api.Repositories
             await _context.SaveChangesAsync();
             return existingStreaming;
         }
-        public Task<bool> StreamingExists(int id)
+
+
+        public async Task<bool> StreamingExists(string name)
         {
-            throw new NotImplementedException();
+            var movieExistes = await _context.Streamings.AnyAsync(m => m.Name == name);
+            return movieExistes;
         }
     }
 }

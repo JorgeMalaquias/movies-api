@@ -12,6 +12,6 @@ namespace movies_api.Dtos.Rating
     {
         public int Id { get; set; }
         public int RatingNumber { get; set; }
-        public MovieDto Movie { get; set; } = null;
+        public MovieDto? Movie { get; set; }
     }
 }

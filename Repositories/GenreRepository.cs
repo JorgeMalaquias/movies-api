@@ -69,5 +69,11 @@ namespace movies_api.Repositories
             await _context.SaveChangesAsync();
             return existingGenre;
         }
+
+        public async Task<bool> GenreExists(string name)
+        {
+            var movieExistes = await _context.Genres.AnyAsync(m => m.Name == name);
+            return movieExistes;
+        }
     }
 }

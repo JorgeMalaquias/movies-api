@@ -31,6 +31,11 @@ namespace movies_api.Repositories
             }
             return movie;
         }
+        public async Task<bool> MovieExists(string title)
+        {
+            var movieExistes = await _context.Movies.AnyAsync(m => m.Title == title);
+            return movieExistes;
+        }
 
         public async Task<List<Movie>> GetManyAsync(MovieQuery query)
         {
@@ -116,10 +121,8 @@ namespace movies_api.Repositories
             await _context.SaveChangesAsync();
             return movie;
         }
-        public async Task<bool> MovieExists(int id)
-        {
-            var movieExistes = await _context.Movies.AnyAsync(m => m.Id == id);
-            return movieExistes;
-        }
+
+
+
     }
 }

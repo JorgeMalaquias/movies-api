@@ -46,10 +46,6 @@ namespace movies_api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            if (!await _movieRepository.MovieExists(dto.MovieId))
-            {
-                return BadRequest("Movie not found");
-            }
             var model = dto.ToRatingFromCreateDto();
             var rating = await _repository.CreateAsync(model);
             return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToRatingDto());

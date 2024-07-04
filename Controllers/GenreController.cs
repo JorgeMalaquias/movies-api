@@ -45,6 +45,10 @@ namespace movies_api.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (await _repository.GenreExists(dto.Name))
+            {
+                return Conflict("There's already a movie with this name");
+            }
             var model = dto.ToGenreModelFromCreateDTO();
             var rating = await _repository.CreateAsync(model);
             return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToGenreDto());
@@ -55,6 +59,10 @@ namespace movies_api.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+            if (await _repository.GenreExists(dto.Name))
+            {
+                return Conflict("There's already a movie with this name");
             }
             var model = dto.ToGenreModelFromUpdateDTO();
             var modelFromRepository = await _repository.UpdateAsync(id, model);

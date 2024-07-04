@@ -17,6 +17,6 @@ namespace movies_api.Interfaces
         Task<Movie?> DeleteAsync(int id);
         Task<Movie?> ConnectGenreAsync(int movieId, Genre genre);
         Task<Movie?> ConnectStreamingAsync(int movieId, Streaming streaming);
-        Task<bool> MovieExists(int id);
+        Task<bool> MovieExists(string title);
     }
 }
