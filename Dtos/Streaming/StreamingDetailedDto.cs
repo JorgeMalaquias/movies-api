@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using movies_api.Dtos.Movie;
-using movies_api.models;
 
-namespace movies_api.Dtos.Genre
+namespace movies_api.Dtos.Streaming
 {
-    public class GenreDto
+    public class StreamingDetailedDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
+        public List<MovieDto> Movies { get; set; } = [];
     }
 }

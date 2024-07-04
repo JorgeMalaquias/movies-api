@@ -27,7 +27,7 @@ namespace movies_api.Controllers
         public async Task<IActionResult> GetMany()
         {
             var comments = await _repository.GetManyAsync();
-            return Ok(comments);
+            return Ok(comments.Select(c => c.ToCommentDto()));
         }
 
         [HttpGet("{id:int}")]
@@ -38,7 +38,7 @@ namespace movies_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(comment);
+            return Ok(comment.ToCommentDto());
         }
 
         [HttpPost]

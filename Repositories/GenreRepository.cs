@@ -24,7 +24,7 @@ namespace movies_api.Repositories
         }
         public async Task<Genre?> GetByIdAsync(int id)
         {
-            var genre = await _context.Genres.FirstOrDefaultAsync(g => g.Id == id);
+            var genre = await _context.Genres.Include(g => g.Movies).FirstOrDefaultAsync(g => g.Id == id);
             if (genre == null)
             {
                 return null;

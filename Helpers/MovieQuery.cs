@@ -7,7 +7,7 @@ using movies_api.models;
 
 namespace movies_api.Helpers
 {
-    public class MovieQuery
+    public class MovieQuery : PaginationQuery
     {
         public int? Id { get; set; }
         public string? Title { get; set; }
@@ -16,7 +16,5 @@ namespace movies_api.Helpers
         public string? StreamingName { get; set; }
         public string? GenreName { get; set; }
         public bool SortByRating { get; set; }
-        public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 10;
     }
 }

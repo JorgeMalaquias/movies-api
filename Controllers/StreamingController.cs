@@ -19,6 +19,16 @@ namespace movies_api.Controllers
         {
             _repository = repository;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetMany()
+        {
+            var streaming = await _repository.GetManyAsync();
+            if (streaming == null)
+            {
+                return NotFound();
+            }
+            return Ok(streaming.Select(s => s.ToStreamingDto()));
+        }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
@@ -28,7 +38,7 @@ namespace movies_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(streaming);
+            return Ok(streaming.ToStreamingDetailedDto());
         }
 
         [HttpPost]

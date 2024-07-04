@@ -19,7 +19,7 @@ namespace movies_api.Repositories
         }
         public async Task<Streaming?> GetByIdAsync(int id)
         {
-            var streaming = await _context.Streamings.FirstOrDefaultAsync(s => s.Id == id);
+            var streaming = await _context.Streamings.Include(s => s.Movies).FirstOrDefaultAsync(s => s.Id == id);
             if (streaming == null)
             {
                 return null;

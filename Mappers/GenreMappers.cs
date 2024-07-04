@@ -32,5 +32,14 @@ namespace movies_api.Mappers
                 Name = model.Name
             };
         }
+        public static GenreDetailedDto ToGenreDetailedDto(this Genre model)
+        {
+            return new GenreDetailedDto
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Movies = (List<MovieDto>)model.Movies.Select(c => c.ToMovieDto()),
+            };
+        }
     }
 }

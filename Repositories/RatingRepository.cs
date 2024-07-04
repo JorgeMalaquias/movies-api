@@ -18,12 +18,12 @@ namespace movies_api.Repositories
         }
         public async Task<List<Rating>> GetManyAsync()
         {
-            var ratings = await _context.Ratings.ToListAsync();
+            var ratings = await _context.Ratings.Include(r => r.Movie).ToListAsync();
             return ratings;
         }
         public async Task<Rating?> GetByIdAsync(int id)
         {
-            var rating = await _context.Ratings.FirstOrDefaultAsync(r => r.Id == id);
+            var rating = await _context.Ratings.Include(r => r.Movie).FirstOrDefaultAsync(r => r.Id == id);
             if (rating == null)
             {
                 return null;
@@ -53,7 +53,7 @@ namespace movies_api.Repositories
 
         public async Task<Rating?> UpdateAsync(int id, Rating model)
         {
-            var existingRating = await _context.Ratings.FirstOrDefaultAsync(m => m.Id == id);
+            var existingRating = await _context.Ratings.Include(r => r.Movie).FirstOrDefaultAsync(m => m.Id == id);
             if (existingRating == null)
             {
                 return null;
