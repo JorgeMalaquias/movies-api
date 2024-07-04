@@ -17,5 +17,6 @@ namespace movies_api.models
         public List<Streaming> Streamings { get; set; } = [];
         public List<Genre> Genres { get; set; } = [];
         public List<Rating> Ratings { get; set; } = [];
+        public List<Comment> Comments { get; set; } = [];
     }
 }

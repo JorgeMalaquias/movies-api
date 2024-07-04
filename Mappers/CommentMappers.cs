@@ -32,8 +32,7 @@ namespace movies_api.Mappers
             return new CommentDto
             {
                 Id = model.Id,
-                Content = model.Content,
-                MovieId = model.MovieId
+                Content = model.Content
             };
         }
     }

@@ -9,6 +9,5 @@ namespace movies_api.Dtos.Comment
     {
         public int Id { get; set; }
         public string Content { get; set; } = String.Empty;
-        public int? MovieId { get; set; }
     }
 }

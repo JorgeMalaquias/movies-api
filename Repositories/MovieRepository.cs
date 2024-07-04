@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using movies_api.Database;
+using movies_api.Dtos.Movie;
 using movies_api.Helpers;
 using movies_api.Interfaces;
 using movies_api.models;
+using movies_api.Models;
 
 namespace movies_api.Repositories
 {
@@ -32,7 +34,7 @@ namespace movies_api.Repositories
 
         public async Task<List<Movie>> GetManyAsync(MovieQuery query)
         {
-            var movies = _context.Movies.Include(m => m.Ratings.Average(r => r.RatingNumber)).AsQueryable();
+            var movies = _context.Movies.Include(m => m.Ratings).AsQueryable();
             if (!string.IsNullOrWhiteSpace(query.Title))
             {
                 movies = movies.Where(m => m.Title == query.Title || m.Title.Contains(query.Title));
@@ -51,7 +53,9 @@ namespace movies_api.Repositories
             }
             var skipNumber = (query.PageNumber - 1) * query.PageSize;
 
-            return await movies.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+            var moviesQuery = await movies.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+
+            return moviesQuery;
         }
 
         public async Task<Movie> CreateAsync(Movie model)

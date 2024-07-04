@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using movies_api.Dtos.Comment;
+using movies_api.Dtos.Genre;
 using movies_api.Dtos.Movie;
+using movies_api.Dtos.Streaming;
 using movies_api.models;
 
 namespace movies_api.Mappers
@@ -31,8 +34,23 @@ namespace movies_api.Mappers
             {
                 Id = model.Id,
                 Title = model.Title,
-                ReleasingDate = model.ReleasingDate
-
+                ReleasingDate = model.ReleasingDate,
+                RatingAverage = model.Ratings.Any() ? (float)model.Ratings.Average(r => r.RatingNumber) : null
+            };
+        }
+        public static MovieDetailedDto ToMovieDetailedDto(this Movie model)
+        {
+            return new MovieDetailedDto
+            {
+                Id = model.Id,
+                Title = model.Title,
+                ReleasingDate = model.ReleasingDate,
+                RatingAverage = model.Ratings.Any() ? (float)model.Ratings.Average(r => r.RatingNumber) : null,
+                NumberOfRatings = model.Ratings.Count(),
+                NumberOfComments = model.Comments.Count(),
+                Comments = (List<CommentDto>)model.Comments.Select(c => c.ToCommentDto()),
+                Genres = (List<GenreDto>)model.Genres.Select(g => g.ToGenreDto()),
+                Streamings = (List<StreamingDto>)model.Streamings.Select(s => s.ToStreamingDto()),
             };
         }
     }

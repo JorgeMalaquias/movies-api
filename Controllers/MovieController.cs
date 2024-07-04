@@ -28,18 +28,18 @@ namespace movies_api.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var movie = await _repository.GetByIdAsync(id);
-            if (movie == null)
+            var model = await _repository.GetByIdAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
-            return Ok(movie);
+            return Ok(model.ToMovieDetailedDto());
         }
         [HttpGet]
         public async Task<IActionResult> GetMany([FromQuery] MovieQuery query)
         {
             var movies = await _repository.GetManyAsync(query);
-            return Ok(movies);
+            return Ok(movies.Select(m => m.ToMovieDto()));
         }
 
         [HttpPost]
@@ -51,7 +51,7 @@ namespace movies_api.Controllers
             }
             var model = dto.ToMovieModelFromCreateDTO();
             var movie = await _repository.CreateAsync(model);
-            return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToMovieDto());
+            return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToMovieDetailedDto());
         }
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateMovieRequestDTO dto)
@@ -66,7 +66,7 @@ namespace movies_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(modelFromRepository.ToMovieDto());
+            return Ok(modelFromRepository.ToMovieDetailedDto());
         }
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
