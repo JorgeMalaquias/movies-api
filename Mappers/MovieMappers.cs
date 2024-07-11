@@ -45,12 +45,12 @@ namespace movies_api.Mappers
                 Id = model.Id,
                 Title = model.Title,
                 ReleasingDate = model.ReleasingDate,
-                RatingAverage = model.Ratings.Any() ? (float)model.Ratings.Average(r => r.RatingNumber) : null,
-                NumberOfRatings = model.Ratings.Count(),
-                NumberOfComments = model.Comments.Count(),
-                //Comments = model.Comments.Any() ? (List<CommentDto>)model.Comments.Select(c => c.ToCommentDto()) : [],
-                //Genres = model.Genres.Any() ? (List<GenreDto>)model.Genres.Select(g => g.ToGenreDto()) : [],
-                //Streamings = model.Streamings.Any() ? (List<StreamingDto>)model.Streamings.Select(s => s.ToStreamingDto()) : [],
+                RatingAverage = model.Ratings.Count != 0 ? (float)model.Ratings.Average(r => r.RatingNumber) : null,
+                NumberOfRatings = model.Ratings.Count,
+                NumberOfComments = model.Comments.Count,
+                Comments = model.Comments.Count != 0 ? model.Comments.Select(c => c.ToCommentDto()) : [],
+                Genres = model.Genres.Count != 0 ? model.Genres.Select(g => g.ToGenreDto()) : [],
+                Streamings = model.Streamings.Count != 0 ? model.Streamings.Select(s => s.ToStreamingDto()) : [],
             };
         }
     }

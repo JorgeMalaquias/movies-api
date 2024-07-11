@@ -17,9 +17,9 @@ namespace movies_api.Dtos.Movie
         public float? RatingAverage { get; set; }
         public int NumberOfRatings { get; set; }
         public int NumberOfComments { get; set; }
-        public List<StreamingDto> Streamings { get; set; } = [];
-        public List<GenreDto> Genres { get; set; } = [];
-        public List<CommentDto> Comments { get; set; } = [];
+        public IEnumerable<StreamingDto> Streamings { get; set; } = [];
+        public IEnumerable<GenreDto> Genres { get; set; } = [];
+        public IEnumerable<CommentDto> Comments { get; set; } = [];
 
     }
 }

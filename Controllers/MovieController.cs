@@ -33,7 +33,7 @@ namespace movies_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(model);
+            return Ok(model.ToMovieDetailedDto());
         }
         [HttpGet]
         public async Task<IActionResult> GetMany([FromQuery] MovieQuery query)
