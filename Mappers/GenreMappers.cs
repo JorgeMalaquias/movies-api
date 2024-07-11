@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using movies_api.Dtos.Genre;
-using movies_api.Dtos.Movie;
 using movies_api.models;
 
 namespace movies_api.Mappers
@@ -38,7 +37,7 @@ namespace movies_api.Mappers
             {
                 Id = model.Id,
                 Name = model.Name,
-                //Movies = model.Movies.Any() ? (List<MovieDto>)model.Movies.Select(c => c.ToMovieDto()) : [],
+                Movies = model.Movies.Count != 0 ? model.Movies.Select(m => m.ToMovieDto()) : [],
             };
         }
     }

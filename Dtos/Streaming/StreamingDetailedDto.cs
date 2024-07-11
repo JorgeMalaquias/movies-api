@@ -10,6 +10,6 @@ namespace movies_api.Dtos.Streaming
     {
         public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
-        public List<MovieDto> Movies { get; set; } = [];
+        public IEnumerable<MovieDto> Movies { get; set; } = [];
     }
 }

@@ -12,7 +12,7 @@ namespace movies_api.Dtos.Movie
     public class MovieDetailedDto
     {
         public int Id { get; set; }
-        public string Title { get; set; } = String.Empty;
+        public required string Title { get; set; }
         public DateOnly ReleasingDate { get; set; }
         public float? RatingAverage { get; set; }
         public int NumberOfRatings { get; set; }

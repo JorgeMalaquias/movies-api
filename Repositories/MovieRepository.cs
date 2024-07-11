@@ -24,13 +24,11 @@ namespace movies_api.Repositories
 
         public async Task<Movie?> GetByIdAsync(int id)
         {
-            var movie = await _context.Movies.Include(m => m.Genres).Include(m => m.Streamings).FirstOrDefaultAsync(m => m.Id == id);
+            var movie = await _context.Movies.Include(m => m.Genres).Include(m => m.Streamings).Include(m => m.Ratings).Include(m => m.Comments).FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {
                 return null;
             }
-            //_context.Entry(movie).Collection(m => m.Genres).Load();
-            //_context.Entry(movie).Collection(m => m.Streamings).Load();
             return movie;
         }
         public async Task<bool> MovieExists(string title)

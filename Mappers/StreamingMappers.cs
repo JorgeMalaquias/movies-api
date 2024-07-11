@@ -24,22 +24,21 @@ namespace movies_api.Mappers
                 Name = dto.Name
             };
         }
-        public static StreamingDetailedDto ToStreamingDetailedDto(this Streaming model)
-        {
-            return new StreamingDetailedDto
-            {
-                Id = model.Id,
-                Name = model.Name,
-                //Movies = model.Movies.Any() ? (List<MovieDto>)model.Movies.Select(m => m.ToMovieDto()) : [],
-
-            };
-        }
         public static StreamingDto ToStreamingDto(this Streaming model)
         {
             return new StreamingDto
             {
                 Id = model.Id,
                 Name = model.Name
+            };
+        }
+        public static StreamingDetailedDto ToStreamingDetailedDto(this Streaming model)
+        {
+            return new StreamingDetailedDto
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Movies = model.Movies.Select(m => m.ToMovieDto()),
             };
         }
     }

@@ -31,7 +31,7 @@ namespace movies_api.Mappers
             {
                 Id = model.Id,
                 RatingNumber = model.RatingNumber,
-                Movie = model.Movie != null ? model.Movie.ToMovieDto() : null
+                Movie = model.Movie?.ToMovieDto()
             };
         }
     }

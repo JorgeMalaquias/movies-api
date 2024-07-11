@@ -25,7 +25,7 @@ namespace movies_api.Controllers
         public async Task<IActionResult> GetMany()
         {
             var ratings = await _repository.GetManyAsync();
-            return Ok(ratings);
+            return Ok(ratings.Select(r => r.ToRatingDto()));
         }
 
         [HttpGet("{id:int}")]
@@ -36,7 +36,7 @@ namespace movies_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(rating);
+            return Ok(rating.ToRatingDto());
         }
 
         [HttpPost]

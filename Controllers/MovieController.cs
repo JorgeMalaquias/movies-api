@@ -8,6 +8,7 @@ using movies_api.Dtos.Movie;
 using movies_api.Helpers;
 using movies_api.Interfaces;
 using movies_api.Mappers;
+using movies_api.models;
 
 namespace movies_api.Controllers
 {
