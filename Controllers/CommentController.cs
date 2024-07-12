@@ -38,7 +38,7 @@ namespace movies_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(comment);
+            return Ok(comment.ToCommentDto());
         }
 
         [HttpPost]

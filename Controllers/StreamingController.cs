@@ -38,7 +38,7 @@ namespace movies_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(streaming);
+            return Ok(streaming.ToStreamingDetailedDto());
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace movies_api.Controllers
             }
             if (await _repository.StreamingExists(dto.Name))
             {
-                return Conflict("There's already a movie with this name");
+                return Conflict("There's already a streaming with this name");
             }
             var model = dto.ToStreamingModelFromCreateDTO();
             var rating = await _repository.CreateAsync(model);

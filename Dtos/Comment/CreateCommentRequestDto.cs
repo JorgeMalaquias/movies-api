@@ -11,8 +11,8 @@ namespace movies_api.Dtos.Comment
         [Required]
         [MinLength(10, ErrorMessage = "Comment must have at least 10 characters")]
         [MaxLength(325, ErrorMessage = "Comment can not be more than 325 characters")]
-        public string Content { get; set; } = String.Empty;
+        public required string Content { get; set; }
         [Required]
-        public int MovieId { get; set; }
+        public required int MovieId { get; set; }
     }
 }

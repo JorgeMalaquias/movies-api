@@ -47,7 +47,7 @@ namespace movies_api.Controllers
             }
             if (await _repository.GenreExists(dto.Name))
             {
-                return Conflict("There's already a movie with this name");
+                return Conflict("There's already a genre with this name");
             }
             var model = dto.ToGenreModelFromCreateDTO();
             var rating = await _repository.CreateAsync(model);
