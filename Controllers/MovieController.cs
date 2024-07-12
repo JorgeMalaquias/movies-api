@@ -105,7 +105,7 @@ namespace movies_api.Controllers
             {
                 return NotFound("Movie not found");
             }
-            return CreatedAtAction(nameof(GetById), new { id = movie.Id }, movie.ToMovieDto());
+            return Ok(movie.ToMovieDetailedDto());
         }
         [HttpPatch("add_streaming/{streamingId:int}/{movieId:int}")]
         public async Task<IActionResult> ConnectToStreaming([FromRoute] int streamingId, int movieId)
@@ -124,7 +124,7 @@ namespace movies_api.Controllers
             {
                 return NotFound("Movie not found");
             }
-            return CreatedAtAction(nameof(GetById), new { id = movie.Id }, movie.ToMovieDto());
+            return Ok(movie.ToMovieDetailedDto());
         }
     }
 }

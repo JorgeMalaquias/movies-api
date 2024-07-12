@@ -35,7 +35,7 @@ namespace movies_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(genre);
+            return Ok(genre.ToGenreDetailedDto());
         }
 
         [HttpPost]

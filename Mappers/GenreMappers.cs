@@ -37,7 +37,7 @@ namespace movies_api.Mappers
             {
                 Id = model.Id,
                 Name = model.Name,
-                Movies = model.Movies.Count != 0 ? model.Movies.Select(m => m.ToMovieDto()) : [],
+                Movies = model.Movies.Select(m => m.ToMovieDto()),
             };
         }
     }
