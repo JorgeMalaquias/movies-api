@@ -46,10 +46,6 @@ namespace movies_api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateMovieRequestDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             if (await _repository.MovieExists(dto.Title))
             {
                 return Conflict("There's already a movie with this name");
@@ -61,10 +57,6 @@ namespace movies_api.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateMovieRequestDTO dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             if (await _repository.MovieExists(dto.Title))
             {
                 return Conflict("There's already a movie with this name");
@@ -91,10 +83,6 @@ namespace movies_api.Controllers
         [HttpPatch("add_genre/{genreId:int}/{movieId:int}")]
         public async Task<IActionResult> ConnectToGenre([FromRoute] int genreId, int movieId)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var genre = await _genreRepository.GetByIdAsync(genreId);
             if (genre == null)
             {
@@ -110,10 +98,6 @@ namespace movies_api.Controllers
         [HttpPatch("add_streaming/{streamingId:int}/{movieId:int}")]
         public async Task<IActionResult> ConnectToStreaming([FromRoute] int streamingId, int movieId)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var streaming = await _streamingRepository.GetByIdAsync(streamingId);
             if (streaming == null)
             {

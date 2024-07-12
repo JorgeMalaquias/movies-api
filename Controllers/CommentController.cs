@@ -44,10 +44,6 @@ namespace movies_api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCommentRequestDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             if (!await _movieRepository.MovieExistsId(dto.MovieId))
             {
                 return BadRequest("Movie not found");
@@ -59,10 +55,6 @@ namespace movies_api.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentRequestDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var model = dto.ToCommentModelFromUpdateDTO();
             var modelFromRepository = await _repository.UpdateAsync(id, model);
             if (modelFromRepository == null)

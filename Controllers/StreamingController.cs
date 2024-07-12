@@ -44,10 +44,6 @@ namespace movies_api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateStreamingRequestDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             if (await _repository.StreamingExists(dto.Name))
             {
                 return Conflict("There's already a streaming with this name");
@@ -59,10 +55,6 @@ namespace movies_api.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStreamingRequestDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             if (await _repository.StreamingExists(dto.Name))
             {
                 return Conflict("There's already a movie with this name");

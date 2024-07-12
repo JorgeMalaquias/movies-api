@@ -42,10 +42,6 @@ namespace movies_api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateRatingRequestDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var model = dto.ToRatingFromCreateDto();
             var rating = await _repository.CreateAsync(model);
             return CreatedAtAction(nameof(GetById), new { id = model.Id }, model.ToRatingDto());
@@ -53,10 +49,6 @@ namespace movies_api.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRatingRequestDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var model = dto.ToRatingFromUpdateDto();
             var modelFromRepository = await _repository.UpdateAsync(id, model);
             if (modelFromRepository == null)
