@@ -19,5 +19,11 @@ namespace movies_api.Database
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Movie>()
+                .HasIndex(m => m.Title)
+                .IsUnique();
+        }
     }
 }
